@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import MinMaxScaler
@@ -76,6 +78,7 @@ pipeline = Pipeline([
 pipeline.fit(X, y)
 
 # Save the model to a file
+Path("model").mkdir(exist_ok=True)
 joblib.dump(pipeline, "model/category_model.pkl")
 
 print("✅ Model trained and saved as 'model/category_model.pkl'")

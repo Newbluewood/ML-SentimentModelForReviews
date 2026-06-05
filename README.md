@@ -1,122 +1,153 @@
-# Product Category Classification ML Project (Complete Pipeline)
+# ML projekat — predikcija kategorije proizvoda (kompletan pipeline)
 
-This repository contains a complete machine learning pipeline for **predicting product categories from product titles** using Python and scikit-learn.
+Repozitorijum sadrži kompletan mašinsko-učenje pipeline za **predikciju kategorije proizvoda na osnovu naziva (Product Title)** koristeći Python i scikit-learn.
 
-The project was developed as part of a learning module, where we demonstrated all typical phases of a machine learning workflow — from raw data to a ready-to-use trained model.
+Projekat je razvijen u okviru edukativnog modula i pokriva sve tipične faze ML workflow-a — od sirovih podataka do treniranog modela spremnog za korišćenje.
 
 ---
 
-## Project Structure
+## Struktura projekta
 
 ```
 ├── data/
-│   └── IMLP4_TASK_03-products.csv    # dataset
+│   └── IMLP4_TASK_03-products.csv       # skup podataka
 ├── notebooks/
-│   └── product_category_analysis.ipynb   # EDA, preprocessing, and model comparison
+│   └── product_category_analysis.ipynb  # EDA, inženjering karakteristika, treniranje i evaluacija
 ├── src/
-│   ├── train_model.py                  # train and save the model
-│   ├── test_model.py                   # interactive console testing
-│   └── predict_category.py             # batch predictions on sample titles
-├── model/                              # generated locally (not in repo)
-│   └── category_model.pkl
+│   ├── train_model.py                   # treniranje i čuvanje modela
+│   ├── test_model.py                    # interaktivno testiranje (unos naziva proizvoda)
+│   └── predict_category.py              # predikcija na primerima iz zadatka
+├── model/
+│   └── category_model.pkl               # trenirani model (generiše se lokalno)
+├── requirements.txt
 └── README.md
 ```
 
 ---
 
-## What We Did in This Module
+## Šta projekat sadrži
 
-Throughout this module, we covered all major steps of a real-world ML project:
+| Komponenta | Lokacija | Opis |
+|------------|----------|------|
+| Trenirani model (`.pkl`) | `model/category_model.pkl` | Pipeline (preprocessing + Random Forest), čuva se nakon pokretanja `train_model.py` |
+| Skripta za treniranje | `src/train_model.py` | Učitava podatke, primenjuje isti tok kao notebook, trenira i čuva model |
+| Interaktivno testiranje | `src/test_model.py` | Korisnik unosi naziv proizvoda, model predviđa kategoriju |
+| Jupyter sveska | `notebooks/product_category_analysis.ipynb` | Kompletna analiza, FE, treniranje (LR, NB, RF) i matrica zabune |
+| Dokumentacija | `README.md` | Uputstvo za instalaciju, treniranje i testiranje |
 
-### 1. Project Setup
-- Created a new GitHub repository
-- Defined project folder structure
-- Uploaded the raw product dataset
-
-### 2. Data Exploration
-- Loaded and analyzed a dataset with ~35,000 product listings
-- Used `matplotlib` and `seaborn` for visualizations
-- Investigated category distribution, missing values, and title characteristics
-
-### 3. Data Cleaning & Preprocessing
-- Removed rows with missing values
-- Standardized category labels (e.g. `fridge` → `Fridges`, `CPU` → `CPUs`)
-- Stripped whitespace from product titles
-- Dropped irrelevant columns (IDs, dates, merchant metadata)
-
-### 4. Feature Engineering
-- Created numeric features from titles: word count, title length, digits, uppercase letters, max word length
-- Converted titles to lowercase for text modeling
-- Selected input features: `Product Title` + engineered numeric columns
-
-### 5. Model Training & Evaluation
-- Compared multiple ML models (Logistic Regression, Naive Bayes, Random Forest)
-- Used `TfidfVectorizer`, `MinMaxScaler`, `ColumnTransformer`, and `Pipeline`
-- Evaluated using accuracy score and confusion matrix
-- **Random Forest** achieved the best performance on the test set
-
-### 6. Final Model Training
-- Trained the final model on the full cleaned dataset
-- Saved the pipeline using `joblib` to `model/category_model.pkl`
-
-### 7. Inference & Usage
-- Loaded the saved model for prediction on new product titles
-- Built an interactive console interface for real-time testing
-- Added a script with predefined sample titles from the assignment
+> **Napomena o modelu:** Fajl `category_model.pkl` nije u repozitorijumu (prevelik za GitHub). Nakon kloniranja pokrenite `python src/train_model.py` — model se kreira za nekoliko minuta i čuva u `model/`.
 
 ---
 
-## How to Use
+## Koraci u modulu
 
-Run all commands from the project root directory.
+### 1. Postavljanje projekta
+- Kreiran GitHub repozitorijum
+- Definisana struktura foldera
+- Učitan skup podataka sa ~35 000 proizvoda
 
-### Install dependencies
+### 2. Istraživanje podataka (EDA)
+- Pregled oblika skupa, tipova kolona i nedostajućih vrednosti
+- Vizuelizacije raspodele kategorija (`matplotlib`, `seaborn`)
+- Analiza kolone `Product Title` i numeričkih kolona
+
+### 3. Čišćenje i predobrada
+- Uklanjanje redova sa nedostajućim vrednostima (`dropna`)
+- Standardizacija naziva kategorija (npr. `fridge` → `Fridges`)
+- Uklanjanje suvišnih kolona (ID-jevi, datumi, metapodaci prodavca)
+
+### 4. Inženjering karakteristika
+- `broj_reci`, `duzina_naslova`, `ima_brojeve`, `ima_velika_slova`, `max_duzina_reci`
+- Pretvaranje naslova u mala slova
+- Ulaz modela: `Product Title` + numeričke karakteristike
+
+### 5. Treniranje i evaluacija
+- Poređenje modela: Logistic Regression, Naive Bayes, Random Forest
+- `TfidfVectorizer`, `MinMaxScaler`, `ColumnTransformer`, `Pipeline`
+- Evaluacija: tačnost i matrica zabune
+- **Random Forest** — najbolji rezultat na test skupu
+
+### 6. Finalni model
+- Treniranje na celom očišćenom skupu
+- Čuvanje pipeline-a pomoću `joblib` u `model/category_model.pkl`
+
+### 7. Inferencija
+- Učitavanje sačuvanog modela
+- Interaktivno testiranje preko konzole
+- Skripta sa primerima naslova iz zadatka
+
+---
+
+## Kako koristiti
+
+Sve komande pokretati iz **korena projekta** (`Task3/`).
+
+### 1. Kloniranje repozitorijuma
 
 ```bash
-pip install pandas scikit-learn joblib matplotlib seaborn
+git clone git@github.com:Newbluewood/ML-SentimentModelForReviews.git
+cd ML-SentimentModelForReviews
 ```
 
-### Train the model
+### 2. Instalacija zavisnosti
+
+```bash
+python -m venv venv
+# Windows:
+venv\Scripts\activate
+# Linux/macOS:
+source venv/bin/activate
+
+pip install -r requirements.txt
+```
+
+### 3. Treniranje modela
 
 ```bash
 python src/train_model.py
 ```
 
-This creates `model/category_model.pkl` locally.
+Kreira fajl `model/category_model.pkl`.
 
-### Run interactive inference
+### 4. Interaktivno testiranje
 
 ```bash
 python src/test_model.py
 ```
 
-Enter a product title when prompted. Type `exit` to quit.
+Unesite naziv proizvoda kada se zatraži. Za izlaz ukucajte `exit`.
 
-### Run sample predictions
+Primer:
+
+```
+Unesite naziv proizvoda: iphone 7 32gb gold
+Predviđena kategorija: Mobile Phones
+```
+
+### 5. Predikcija na primerima iz zadatka
 
 ```bash
 python src/predict_category.py
 ```
 
-Or pass a custom title:
+Ili sa proizvoljnim naslovom:
 
 ```bash
-python src/predict_category.py "iphone 7 32gb gold"
+python src/predict_category.py "bosch wap28390gb 8kg 1400 spin"
 ```
 
-### Explore the notebook
+### 6. Jupyter sveska
 
-Open `notebooks/product_category_analysis.ipynb` in Jupyter or Google Colab for the full step-by-step analysis.
+Otvorite `notebooks/product_category_analysis.ipynb` u Jupyter-u ili Google Colab-u za kompletnu analizu korak po korak.
 
 ---
 
-## Author
+## Autor
 
-This repository was developed as part of an educational program on practical machine learning using Python.  
-All steps were documented and modularized to help students understand and reproduce the entire workflow.
+Projekat je razvijen u okviru programa **Introduction to Machine Learning using Python** (IT Academy).
 
-**Author:** Nebojša Simović
+**Autor:** Nebojša Simović
 
-## License
+## Licenca
 
-This project is open-source and freely available for educational use.
+Projekat je otvorenog koda i slobodan za edukativnu upotrebu.

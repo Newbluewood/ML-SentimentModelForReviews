@@ -6,13 +6,13 @@ import pandas as pd
 # Load the saved model
 model = joblib.load("model/category_model.pkl")
 
-print("✅ Model loaded successfully!")
-print("Type 'exit' at any point to stop.\n")
+print("✅ Model uspešno učitan!")
+print("Ukucajte 'exit' za izlaz.\n")
 
 while True:
-    title = input("📝 Enter product title: ")
+    title = input("📝 Unesite naziv proizvoda: ")
     if title.lower() == "exit":
-        print("Exiting...")
+        print("Izlaz...")
         break
 
     title = title.strip()
@@ -36,4 +36,4 @@ while True:
     )
 
     prediction = model.predict(user_input)[0]
-    print(f"🔎 Predicted category: {prediction}\n" + "-" * 40)
+    print(f"🔎 Predviđena kategorija: {prediction}\n" + "-" * 40)
