@@ -1,0 +1,19 @@
+# Python
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Secrets
+.env
+
+# Model — ceo folder lokalno, ne na GitHub
+model/
+
+# Dataset — IMLP4_TASK_03-products.csv u repou (predaja + Colab)
+data/*.csv
+!data/IMLP4_TASK_03-products.csv
+data/*.zip
+*.zip
+*.rar
