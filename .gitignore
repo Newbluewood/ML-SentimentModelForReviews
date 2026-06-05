@@ -8,8 +8,9 @@ __pycache__/
 # Secrets
 .env
 
-# Model — ceo folder lokalno, ne na GitHub
-model/
+# Model — u repou samo trenirani artifact
+model/*
+!model/category_model.pkl
 
 # Dataset — IMLP4_TASK_03-products.csv u repou (predaja + Colab)
 data/*.csv
